@@ -7,7 +7,7 @@
 .container{
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(135deg,#2c3070,#193285);
+    background: linear-gradient(135deg,#587ada,#411778);
     padding: 8px;
 }
 .todo{
@@ -43,7 +43,7 @@
     margin-top: 40px;
 }
 input{
-    flex: 1;
+    /* flex: 1; */
     border: none;
     outline: none;
     background: transparent;
@@ -93,11 +93,6 @@ ul li.checked::before{
     background-image: url(images/checked.png);
 }
 
-/* .quote{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
 .quote h2{
     display: flex;
     align-items: center;
@@ -143,6 +138,39 @@ ul li span:hover{
         padding: 12px 20px;
     }
      .todo{
-        margin: 180px auto;
+        margin: 80px auto 70px;
      }
+     
 }
+
+
+
+
+/* Adding animation when we enter a task */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+ul li {
+    list-style: none;
+    font-size: 20px;
+    padding: 12px 8px 12px 50px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    color: white;
+    border-radius: 20px;
+    margin-top: 17px;
+    background: #333;
+    animation: fadeIn 0.6s ease-in-out; 
+}
+
+
+

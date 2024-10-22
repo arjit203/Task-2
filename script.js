@@ -10,7 +10,8 @@ function addTask(){
         li.innerHTML = inputBox.value; //typed task will store in li
         listContainer.appendChild(li); //displaying li under id->list-container  
 
-        let span= document.createElement("span"); //creating an html element with tag name span
+        let span=document.createElement("span"); 
+        //creating an html element with tag name span
         span.innerHTML = "\u00d7";  //cross icon will store in span tag
         li.appendChild(span); //displaying cross icon under li
     }
@@ -18,33 +19,41 @@ function addTask(){
     saveData();
 }
 
-inputBox.addEventListener("keydown",(e)=>{
+inputBox.addEventListener("keydown",(e)=>{  
+    // after inputting tasks,pressing enter key will add a task
     if(e.key=="Enter"){
-        let li=document.createElement("li"); //creating an html element with tag name li
-        li.innerHTML = inputBox.value; //typed task will store in li
-        listContainer.appendChild(li); //displaying li under id->list-container  
-        inputBox.value="";
-        let span= document.createElement("span"); //creating an html element with tag name span
-        span.innerHTML = "\u00d7";  //cross icon will store in span tag
-        li.appendChild(span);
+        addTask();
     }
-})
+});
 
 listContainer.addEventListener("click",function(e){
-    if(e.target.tagName === "LI"){ //on clicking li(tasks),task will be cheked
+    if(e.target.tagName === "LI"){ //on clicking li(tasks),task will be cheked or unchecked
         e.target.classList.toggle("checked");
         saveData();
     }
     else if(e.target.tagName === "SPAN"){ //on clicking span(crossIcon),task will be removed
-        e.target.parentElement.remove();
-        saveData();
-        let check= confirm("Are you sure to delete yoyr task !!");
-         
-            // e.target.parentElement.remove();
+        let check= confirm("Are you sure to delete your task ??");
+        if(check){  //if check(true-clicking ok button)
+            e.target.parentElement.remove();
+            saveData();
+        } 
+        else {  //if clicking (false - cancel button)
+            console.log("Task deletion cancelled.");
+        }
 
     }
 }, false);
 
+// Enable task editing on double-click
+listContainer.addEventListener("dblclick", function (e) {
+    if (e.target.tagName === "LI") {
+        let editedTask = prompt("Edit your task:" );
+        if (editedTask !== null && editedTask !== '') {
+            e.target.firstChild.textContent = editedTask;
+            saveData();
+        }
+    }
+});
 
 function saveData(){
     localStorage.setItem("data",listContainer.innerHTML);
